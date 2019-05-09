@@ -1,4 +1,4 @@
-/* 
+/*
 
 Prototype Refactor
 
@@ -7,42 +7,45 @@ Prototype Refactor
 2. Your goal is to refactor all of this code to use ES6 Classes. The console.log() statements should still return what is expected of them.
 
 */
-
-function gameObject(features) {
-    this.createdAt = features.createdAt;
-    this.name = features.name;
-    this.dimensions = features.dimensions;
-    
-  }
+class gameObject  {
+    constructor(features) {
+        this.createdAt = features.createdAt;
+        this.name = features.name;
+        this.dimensions = features.dimensions;
+    }
+    destroy() {
+        return `${this.name} was removed from the game`;
+    }
+}
   
-  gameObject.prototype.destroy = function() {
-    return `${this.name} was removed from the game`;
-  }
 
-  function CharacterStats(stats) {
-    gameObject.call(this, stats);
-    this.healthPoints = stats.healthPoints;
-   
-  }
+class CharacterStats extends gameObject {
+    constructor(stats) {
+        super(stats);
+        this.healthPoints = stats.healthPoints;
+    }
+    takeDamage() {
+        return `${this.name} took damage`;
+    }
+}
   
-  CharacterStats.prototype = Object.create(gameObject.prototype)
+CharacterStats.prototype = Object.create(gameObject.prototype)
   
-  CharacterStats.prototype.takeDamage = function() {
-    return `${this.name} took damage`;
-  }
 
-  function Humanoid(species) {
-    CharacterStats.call(this, species);
-    this.team = species.team;
-    this.weapons = species.weapons;
-    this.language = species.language;
-  }
+class Humanoid extends CharacterStats {
+    constructor(species) {
+        super(species);
+        this.team = species.team;
+        this.weapons = species.weapons;
+        this.language = species.language;
+    }
+    greet() {
+        return `${this.name} offers a greeting in ${this.language}`;
+    }
+}
   
   Humanoid.prototype = Object.create(CharacterStats.prototype);
   
-  Humanoid.prototype.greet = function() {
-    return `${this.name} offers a greeting in ${this.language}`;
-  }
 
   const mage = new Humanoid({
     createdAt: new Date(),
