@@ -1,5 +1,5 @@
 // CODE here for your Lambda Classes
-
+// Base Class
 class Person{
     constructor(attributes){
         this.name = attributes.name;
@@ -11,7 +11,7 @@ class Person{
         return `Hello my name is ${this.name}, I am from ${this.location}.`;
     }
 }
-
+// Child Class
 class Instructor extends Person{
     constructor(attributes){
         super(attributes);
@@ -30,7 +30,7 @@ class Instructor extends Person{
         return `${student.name}'s grade is ${student.grade}.`;
     }
 }
-
+// Child Class
 class Student extends Person{
     constructor(attributes){
         super(attributes);
@@ -48,6 +48,7 @@ class Student extends Person{
     sprintChallenge(subject){
         return `${this.name} has begun spring challenge on ${subject}.`;  
     }
+
     graduate(instructor){
         if(this.grade >= 70){
             return `${this.name} has graduated.`;
@@ -58,6 +59,7 @@ class Student extends Person{
     }
 }
 
+// Child Class
 class ProjectManager extends Instructor{
     constructor(attributes){
         super(attributes);
